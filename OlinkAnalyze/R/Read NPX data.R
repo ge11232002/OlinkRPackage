@@ -35,7 +35,7 @@ read_NPX <- function(filename){
   meta_dat<-rbind(meta_dat,missfreq,LOD)
 
 
-  nr_panel<-(ncol(meta_dat)-1)/94
+  nr_panel<-floor((ncol(meta_dat)-1)/94)
 
   SampleID<-dat$Name
 
@@ -85,8 +85,8 @@ read_NPX <- function(filename){
       select(SampleID,Index,Assay, UniProt, Name,MissingFreq,Panel,`Plate ID`,`QC Warning`,LOD,NPX) %>%
       rename(PlateID =`Plate ID`) %>%
       rename(QC_Warning = `QC Warning`) %>%
-      rename(OlinkID = Assay, Assay = Name) 
-      
+      rename(OlinkID = Assay, Assay = Name)
+
   }
 
   bind_rows(panel_list_long) %>%
