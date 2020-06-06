@@ -9,7 +9,7 @@ olink_ttest(df, variable, ...)
 \arguments{
 \item{df}{NPX data frame in long format with at least protein name (Assay), OlinkID, UniProt and a factor with 2 levels.}
 
-\item{variable}{Character value indicating which column should be used as the grouping variable. Needs to have exactly 2 levels}
+\item{variable}{Character value indicating which column should be used as the grouping variable. Needs to have exactly 2 levels.}
 
 \item{...}{Options to be passed to t.test. See ?t.test for more.}
 }
@@ -17,7 +17,9 @@ olink_ttest(df, variable, ...)
 A data frame containing the t-test results for every protein.
 }
 \description{
-Performs a 2-sample t-test on for every protein (by OlinkID) for a given grouping variable.
+Performs a Welch 2-sample t-test at confidence level 0.95 for every protein (by OlinkID) for a given grouping variable using stats::t.test and corrects for multiple testing by the Benjamini-Hochberg method (“fdr”) using stats::p.adjust. 
+Adjusted p-values are logically evaluated towards adjusted p-value<0.05. 
+The resulting t-test table is arranged by ascending p-values.
 }
 \examples{
 \donttest{ttest_results <- olink_ttest(df=npx.data, variable = 'Group', alternative = 'two.sided')}
